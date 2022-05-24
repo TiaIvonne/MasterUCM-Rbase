@@ -1,0 +1,311 @@
+---
+title: "Prueba de evaluación R"
+author: "Ivonne Yáñez Mendoza"
+fontsize: 12pt
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+
+##### Módulo: Programacion R
+
+##### Profesor: Jose Luis Brita-Paja
+
+##### Master en big data & business analytics, Universidad Complutense de Madrid
+
+##### 26 de abril de 2022
+
+------------------------------------------------------------------------
+
+**Pregunta 1**
+
+
+a)  Generar todos los números que entran en el sorteo de la ONCE y mostrarlos 
+con los cuatro dígitos.
+
+```{r paged.print=TRUE}
+# Se genera el dato para trabajar
+numeros <- c(formatC(0000:9999, width = 4, flag = '0' ))
+
+# El resultado 
+resultado <- sapply(numeros, function(x) 
+          sum( as.numeric(unlist(strsplit(as.character(x), split=""))) ))
+
+ordenado <- sort.int(resultado, decreasing = TRUE)
+```
+
+b)  ¿Cuál es la suma de los números de un boleto que más se repite?
+
+```{r}
+mas_repetido <- tail(names(sort(table(resultado))), 1)
+sprintf("La suma de los numeros de un boleto que mas se repite es %s. ", 
+        mas_repetido)
+```
+
+**Pregunta 2**
+
+a)  Leer los archivos "datos_provincias.csv", "CodProv.txt\* y "CodCCAA.dat ". 
+Añade el código de la comunidad autónoma al fichero "datos_provincias.csv" 
+(no manualmente).
+
+```{r paged.print=TRUE}
+library(kableExtra)
+# Paso 1 leer los archivos
+
+cod_ccaa <- read.csv("CodCCAA.csv")
+datos_provincias <- data.frame(read.csv("datos_provincias.csv"))
+cod_provincias <- data.frame(read.table(file = "CodProv.txt", sep=",", 
+                  header = TRUE, row.names = NULL))
+
+# Paso 2 se elimina la ES de la columna Codigo del data frame cod_provincias
+cod_provincias$Código <- sub("^(\\w+)-", "", cod_provincias$Código)
+
+# Con merge se une tanto el data frame cod_provincias como datos provincias 
+# para traer el codigo de la comunidad autonoma que corresponde
+
+base_graficos <- merge(cod_provincias, datos_provincias, by.x = "Código", by.y = "provincia_iso", all.y = TRUE)
+```
+
+b)  Selecciona los datos de la comunidad autónoma que te corresponda. Para saber cuál es tu comunidad autónoma realiza la siguiente operación
+
+```{r}
+# DNI o Pasaporte mod 17 por ejemplo (12345678 %% 17 = 6 → Castilla y León)
+
+# Paso 2 seleccionar los datos de la comunidad autonoma que me corresponde.
+
+dni <- 169728542
+dni_provincias <- dni %% 17
+
+# Según este cálculo la provincia asignada es PV, pais vasco, se filtra segun 
+# el código de la comunidad autónoma"
+viscaya <- subset(base_graficos, Comunidad.autónoma == "PV")
+
+
+```
+
+**Gráficos**
+
+c) Realizar un gráfico que muestre adecuadamente la evolución de los casos 
+nuevos. Justifica el gráfico elegido. 
+Nota: Elegí este tipo de gráfico pues muestra de una forma visual el aumento
+y decremento de los picos de casos Covid para el periodo señalado.
+
+```{r}
+datos <- viscaya
+
+# Con los datos de Viscaya se genera el gráfico
+datos$fecha <- as.Date(datos$fecha)
+datos <- datos[order(datos$fecha),]
+
+
+x <- datos$fecha
+y <- datos$num_casos
+
+
+g <- aggregate(y, by=list(casos=x), FUN=sum)
+
+"grafico 1"
+
+plot(g, type ="l", xlab ="Meses 2020", ylab ="Numero casos", main ="Evolución Casos Diarios Comunidad Autonoma Viscaya", col = "blue", font = 2)
+polygon(g, col = "lightblue")
+grid()
+axis(side= 2, font=2)
+
+
+```
+
+
+
+
+d)  Presenta en único gráfico la evolución de las distintas variables (columnas)
+por medio de un gráfico de líneas múltiples. 
+Utiliza diferentes colores y añade una leyenda muestre el origen de cada línea.
+
+```{r warning=FALSE}
+"grafico 2"
+plot(g, type = "s", 
+     xtat = 'n', ylab = 'Numero casos', xlab = "Meses 2020",
+     main = "Evolucion de casos COVID segun tipo de caso", beside = TRUE)
+
+
+a <- aggregate(datos$num_casos_prueba_pcr, by=list(casos = datos$fecha), FUN = "sum")
+b <- aggregate(datos$num_casos_prueba_otras, by= list(casos = datos$fecha), FUN = 'sum')
+c <- aggregate(datos$num_casos_prueba_test_ac, by = list(casos = datos$fecha), FUN = 'sum')
+d <- aggregate(datos$num_casos_prueba_desconocida, by = list(casos = datos$fecha), FUN = 'sum')
+lines(a, col= 'red')
+lines(b, col = 'blue')
+lines(c, col = 'green')
+lines(d,col = 'purple')
+
+legend(x = "topleft",         # Posición
+       title = "Tipo casos",
+       legend = c("casos", "casos pcr", "casos otras", "casos ac", "desconocido"), # Textos de la leyenda
+       lty = c(1),          # Tipo de líneas
+       col = c(1, 'red', 'blue', 'green', 'purple'),          # Colores de las líneas
+       lwd = 2)   
+grid()
+```
+
+**Pregunta 3**
+
+a)  Crear dos data frame de nombres, uno de nombre articulo leyendo 
+la información de "articulo.xlsx" y el otro de nombre descuento que guarde la información de "descuento_aplicar.txt".
+
+```{r}
+library("xlsx") #Para leer archivos excel
+
+# Paso 1 leer los datos del archivo excel y del archivo txt"
+tabla_excel <- read.xlsx("articulo.xlsx", sheetIndex = 1)
+descuento <- read.delim("descuento_aplicar.txt")
+
+
+# Paso 2 transformar la tabla excel y el archivo de texto a un data frame
+articulos <- data.frame(tabla_excel)
+descuentos <- data.frame(descuento)
+
+# Cálculo de ingreso bruto
+articulos$ingreso_bruto <- articulos$PVP * articulos$CANTIDAD 
+
+articulos <- articulos[order(articulos$ingreso_bruto, decreasing = TRUE),]
+print(head(articulos))
+```
+
+b)  Crear una variable llamada tipo que clasifique los artículos en los tipos A, B y C en la forma indicada y añadirlo al data frame artículo y calcula, en una única sentencia, el total de ingresos brutos por cada tipo de artículo.
+
+```{r}
+# Calcula deciles para utilizarlos en el cálculo del tipo de descuento
+
+deciles <- quantile(articulos$ingreso_bruto,probs = seq(.1, .9, by = .1))
+
+# Asigna tramo de descuento según ingreso bruto y decil
+articulos$tipo <- with(articulos, ifelse(ingreso_bruto >= 6108000, 'A',
+                                  ifelse(ingreso_bruto > 1797000 & ingreso_bruto < 6108000, "B",
+                                  ifelse(ingreso_bruto <= 1797000, "C", 0))))
+
+# Ordena el data frame de mayor a menor ingreso bruto
+articulos <- articulos[order(articulos$ingreso_bruto, decreasing = TRUE), ]
+print(head(articulos))
+```
+
+c)  Unir los dos data frame, articulo y descuento, de forma adecuada, para crear el data frame clientes. Calcular la variable nuevo_pvp = pvp -- cantidad a descontar. Suponiendo que el volumen de ventas se mantiene constante dar una estimación del porcentaje de decremento en los ingresos brutos al aplicar los descuentos.
+
+```{r}
+
+# Se unen los data frame articulos y descuento para crear el df clientes en el paso posterior
+articulos2 <- articulos
+articulos3 <- merge(articulos, descuento, by.x = "tipo", by.y = "tipo", all.x = TRUE)
+
+
+# Crea el data frame clientes"
+
+clientes <- articulos3
+print(head(clientes))
+
+```
+
+```{r paged.print=TRUE}
+# Calcular la variable nuevo_pvp con el % de descuento correspondiente segun tramo"
+clientes$nuevo_pvp <- with(clientes,ifelse(tipo == "A", clientes$PVP * 0.9,
+                                             ifelse(tipo == "B", clientes$PVP * 0.85, 
+                                            ifelse(tipo == "C", clientes$PVP * 0.8, 0))))
+
+# Crea una nueva columna donde calcula el ingreso bruto por artículo con los valores actualizados"
+clientes$n_ingreso_bruto <- clientes$CANTIDAD * clientes$nuevo_pvp
+
+# Se realiza el cálculo de decremento"
+
+decremento <- round(100 - ((sum(clientes$n_ingreso_bruto) / sum(clientes$ingreso_bruto)) * 100 ), digits = 2)
+paste0("El porcentaje de decremento corresponde a un ", decremento, "%", ".")
+
+
+```
+
+**Pregunta 4**
+
+1.  Para la semana S7, calcule el vector (𝑓1,1−𝑓1,𝑓2,1−𝑓2,𝑓3,1−𝑓3,𝑓4,1−𝑓4) donde 𝑓𝑖 es la frecuencia (relativa) de la modalidad 𝑖∈{1,2,3,4} observada en la semana 𝑆7 sobre los 16 sujetos. (Sugerencia: use las funciones tabulate(), cbind(), t()y as.vector()). Ahora, use la función apply() para hacer el mismo cálculo para todas las demás semanas. Almacene el resultado en una matriz.
+
+```{r}
+
+# Leer el archivo 
+fichero <- source("matriz.R")
+fichero <- fichero[[1]]
+
+print(fichero)
+
+# El primer paso es limpiar y organizar los datos
+# La variable base tiene por objetivo contar la cantidad de ocurrencias de los niveles y rellena con 0 en caso de no hallar coincidencias
+
+base <- apply(fichero, 2, function(i) table(factor(i, levels = c(1:4))))
+
+#Se elimina la columna 1 pues no se utilizará para los cálculos y la tabla esta lista para trabajar
+base <- base[,-1] 
+print(base)
+
+# En una variable se calcula el total de registros que tiene la tabla, son 16
+# Es preferible calcularla en caso que se desee reutilizar este script
+registros <- nrow(fichero)
+print(registros)
+
+#Se realiza el cálculo de frecuencias relativas para la matriz y se agregan nombres a las columnas 
+
+matriz <- base / registros
+colnames(matriz) <- c("s1", "s2", "s3", "s4", "s5", "s6", "s7")
+
+print(matriz)
+
+# Tomando como base la matriz, se crea una nueva para calcular la resta del 1 a las frecuencias
+
+matriz2 <- matrix(unlist(lapply(1, `-`, matriz)), ncol = 7, nrow=4)
+row.names(matriz2) <- c("1", "2", "3", "4")
+print(matriz2)
+
+# Una vez listas ambas matrices es momento de combinarlas para generar la base del gráfico
+data <- rbind(matriz, matriz2)
+data <- data[ order(as.numeric(row.names(data))), ]
+print(data)
+
+```
+
+2.  Utilice la función barplot() y el argumento col = c ("black", "white") en esta matriz. El gráfico que se obtiene ofrece una descripción general de la evolución de la Sensación de ardor con el tiempo.
+
+```{r}
+# Generación de gráfico para evaluar la sensación de ardor con el tiempo
+
+par(mar = c(5, 5, 5, 5))
+original <- barplot(data,
+        ylim=c(0,4),
+        main="Evolución de la sensación de ardor con el tiempo",
+        xlab='Semanas',
+        ylab='Frecuencia relativa',
+        col = c ("black", "white")
+)
+
+```
+
+3.  Cambie el gráfico anterior para que las barras que representan las frecuencias estén en rojo. Los números de las semanas deben estar en azul y en la parte superior del gráfico en lugar del fondo. Los números
+
+```{r}
+# Generación de gráfico para evaluar la sensación de ardor con el tiempo con los cambios solicitados
+
+# Amplia el margen de la hoja del gráfico
+par(mar = c(5, 5, 5, 5))
+cambios <- barplot(data,
+        ylim=c(0,4),
+        xaxt = 'n',
+        col = c ("red", "white"),
+        col.axis = "blue",
+        font.axis = 2,
+
+      
+)
+
+title("Evolución de la sensación de ardor con el tiempo", line = 3.5)
+# Asigna los númeroas de las semanas a la parte superior del gráfico
+axis(3, at = seq(from = 0.7, to = 7.9,by = 1.2),labels = c("s1", "s2", "s3", "s4","s5", "s6", "s7"), 
+     col.axis = "blue", font.axis = 2, tick = FALSE)
+
+
+```

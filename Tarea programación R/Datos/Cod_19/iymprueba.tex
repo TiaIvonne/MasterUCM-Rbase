@@ -1,0 +1,676 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  12pt,
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Prueba de evaluación R},
+  pdfauthor={Ivonne Yáñez Mendoza},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Prueba de evaluación R}
+\author{Ivonne Yáñez Mendoza}
+\date{}
+
+\begin{document}
+\maketitle
+
+\hypertarget{muxf3dulo-programacion-r}{%
+\subparagraph{Módulo: Programacion R}\label{muxf3dulo-programacion-r}}
+
+\hypertarget{profesor-jose-luis-brita-paja}{%
+\subparagraph{Profesor: Jose Luis
+Brita-Paja}\label{profesor-jose-luis-brita-paja}}
+
+\hypertarget{master-en-big-data-business-analytics-universidad-complutense-de-madrid}{%
+\subparagraph{Master en big data \& business analytics, Universidad
+Complutense de
+Madrid}\label{master-en-big-data-business-analytics-universidad-complutense-de-madrid}}
+
+\hypertarget{de-abril-de-2022}{%
+\subparagraph{26 de abril de 2022}\label{de-abril-de-2022}}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Pregunta 1}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  Generar todos los números que entran en el sorteo de la ONCE y
+  mostrarlos con los cuatro dígitos.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Se genera el dato para trabajar}
+\NormalTok{numeros }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{formatC}\NormalTok{(}\DecValTok{0000}\SpecialCharTok{:}\DecValTok{9999}\NormalTok{, }\AttributeTok{width =} \DecValTok{4}\NormalTok{, }\AttributeTok{flag =} \StringTok{\textquotesingle{}0\textquotesingle{}}\NormalTok{ ))}
+
+\CommentTok{\# El resultado }
+\NormalTok{resultado }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(numeros, }\ControlFlowTok{function}\NormalTok{(x) }
+          \FunctionTok{sum}\NormalTok{( }\FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{unlist}\NormalTok{(}\FunctionTok{strsplit}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(x), }\AttributeTok{split=}\StringTok{""}\NormalTok{))) ))}
+
+\NormalTok{ordenado }\OtherTok{\textless{}{-}} \FunctionTok{sort.int}\NormalTok{(resultado, }\AttributeTok{decreasing =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  ¿Cuál es la suma de los números de un boleto que más se repite?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mas\_repetido }\OtherTok{\textless{}{-}} \FunctionTok{tail}\NormalTok{(}\FunctionTok{names}\NormalTok{(}\FunctionTok{sort}\NormalTok{(}\FunctionTok{table}\NormalTok{(resultado))), }\DecValTok{1}\NormalTok{)}
+\FunctionTok{sprintf}\NormalTok{(}\StringTok{"La suma de los numeros de un boleto que mas se repite es \%s. "}\NormalTok{, }
+\NormalTok{        mas\_repetido)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "La suma de los numeros de un boleto que mas se repite es 18. "
+\end{verbatim}
+
+\textbf{Pregunta 2}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  Leer los archivos ``datos\_provincias.csv'', ``CodProv.txt*
+  y''CodCCAA.dat ``. Añade el código de la comunidad autónoma al
+  fichero''datos\_provincias.csv'' (no manualmente).
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(kableExtra)}
+\CommentTok{\# Paso 1 leer los archivos}
+
+\NormalTok{cod\_ccaa }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"CodCCAA.csv"}\NormalTok{)}
+\NormalTok{datos\_provincias }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{read.csv}\NormalTok{(}\StringTok{"datos\_provincias.csv"}\NormalTok{))}
+\NormalTok{cod\_provincias }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{read.table}\NormalTok{(}\AttributeTok{file =} \StringTok{"CodProv.txt"}\NormalTok{, }\AttributeTok{sep=}\StringTok{","}\NormalTok{, }
+                  \AttributeTok{header =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{row.names =} \ConstantTok{NULL}\NormalTok{))}
+
+\CommentTok{\# Paso 2 se elimina la ES de la columna Codigo del data frame cod\_provincias}
+\NormalTok{cod\_provincias}\SpecialCharTok{$}\NormalTok{Código }\OtherTok{\textless{}{-}} \FunctionTok{sub}\NormalTok{(}\StringTok{"\^{}(}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{w+){-}"}\NormalTok{, }\StringTok{""}\NormalTok{, cod\_provincias}\SpecialCharTok{$}\NormalTok{Código)}
+
+\CommentTok{\# Con merge se une tanto el data frame cod\_provincias como datos provincias }
+\CommentTok{\# para traer el codigo de la comunidad autonoma que corresponde}
+
+\NormalTok{base\_graficos }\OtherTok{\textless{}{-}} \FunctionTok{merge}\NormalTok{(cod\_provincias, datos\_provincias, }\AttributeTok{by.x =} \StringTok{"Código"}\NormalTok{, }\AttributeTok{by.y =} \StringTok{"provincia\_iso"}\NormalTok{, }\AttributeTok{all.y =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Selecciona los datos de la comunidad autónoma que te corresponda. Para
+  saber cuál es tu comunidad autónoma realiza la siguiente operación
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# DNI o Pasaporte mod 17 por ejemplo (12345678 \%\% 17 = 6 → Castilla y León)}
+
+\CommentTok{\# Paso 2 seleccionar los datos de la comunidad autonoma que me corresponde.}
+
+\NormalTok{dni }\OtherTok{\textless{}{-}} \DecValTok{169728542}
+\NormalTok{dni\_provincias }\OtherTok{\textless{}{-}}\NormalTok{ dni }\SpecialCharTok{\%\%} \DecValTok{17}
+
+\CommentTok{\# Según este cálculo la provincia asignada es PV, pais vasco, se filtra segun }
+\CommentTok{\# el código de la comunidad autónoma"}
+\NormalTok{viscaya }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(base\_graficos, Comunidad.autónoma }\SpecialCharTok{==} \StringTok{"PV"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Gráficos}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Realizar un gráfico que muestre adecuadamente la evolución de los
+  casos nuevos. Justifica el gráfico elegido. Nota: Elegí este tipo de
+  gráfico pues muestra de una forma visual el aumento y decremento de
+  los picos de casos Covid para el periodo señalado.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datos }\OtherTok{\textless{}{-}}\NormalTok{ viscaya}
+
+\CommentTok{\# Con los datos de Viscaya se genera el gráfico}
+\NormalTok{datos}\SpecialCharTok{$}\NormalTok{fecha }\OtherTok{\textless{}{-}} \FunctionTok{as.Date}\NormalTok{(datos}\SpecialCharTok{$}\NormalTok{fecha)}
+\NormalTok{datos }\OtherTok{\textless{}{-}}\NormalTok{ datos[}\FunctionTok{order}\NormalTok{(datos}\SpecialCharTok{$}\NormalTok{fecha),]}
+
+
+\NormalTok{x }\OtherTok{\textless{}{-}}\NormalTok{ datos}\SpecialCharTok{$}\NormalTok{fecha}
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ datos}\SpecialCharTok{$}\NormalTok{num\_casos}
+
+
+\NormalTok{g }\OtherTok{\textless{}{-}} \FunctionTok{aggregate}\NormalTok{(y, }\AttributeTok{by=}\FunctionTok{list}\NormalTok{(}\AttributeTok{casos=}\NormalTok{x), }\AttributeTok{FUN=}\NormalTok{sum)}
+
+\StringTok{"grafico 1"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "grafico 1"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(g, }\AttributeTok{type =}\StringTok{"l"}\NormalTok{, }\AttributeTok{xlab =}\StringTok{"Meses 2020"}\NormalTok{, }\AttributeTok{ylab =}\StringTok{"Numero casos"}\NormalTok{, }\AttributeTok{main =}\StringTok{"Evolución Casos Diarios Comunidad Autonoma Viscaya"}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{font =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{polygon}\NormalTok{(g, }\AttributeTok{col =} \StringTok{"lightblue"}\NormalTok{)}
+\FunctionTok{grid}\NormalTok{()}
+\FunctionTok{axis}\NormalTok{(}\AttributeTok{side=} \DecValTok{2}\NormalTok{, }\AttributeTok{font=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{iymprueba_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Presenta en único gráfico la evolución de las distintas variables
+  (columnas) por medio de un gráfico de líneas múltiples. Utiliza
+  diferentes colores y añade una leyenda muestre el origen de cada
+  línea.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"grafico 2"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "grafico 2"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(g, }\AttributeTok{type =} \StringTok{"s"}\NormalTok{, }
+     \AttributeTok{xtat =} \StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{, }\AttributeTok{ylab =} \StringTok{\textquotesingle{}Numero casos\textquotesingle{}}\NormalTok{, }\AttributeTok{xlab =} \StringTok{"Meses 2020"}\NormalTok{,}
+     \AttributeTok{main =} \StringTok{"Evolucion de casos COVID segun tipo de caso"}\NormalTok{, }\AttributeTok{beside =} \ConstantTok{TRUE}\NormalTok{)}
+
+
+\NormalTok{a }\OtherTok{\textless{}{-}} \FunctionTok{aggregate}\NormalTok{(datos}\SpecialCharTok{$}\NormalTok{num\_casos\_prueba\_pcr, }\AttributeTok{by=}\FunctionTok{list}\NormalTok{(}\AttributeTok{casos =}\NormalTok{ datos}\SpecialCharTok{$}\NormalTok{fecha), }\AttributeTok{FUN =} \StringTok{"sum"}\NormalTok{)}
+\NormalTok{b }\OtherTok{\textless{}{-}} \FunctionTok{aggregate}\NormalTok{(datos}\SpecialCharTok{$}\NormalTok{num\_casos\_prueba\_otras, }\AttributeTok{by=} \FunctionTok{list}\NormalTok{(}\AttributeTok{casos =}\NormalTok{ datos}\SpecialCharTok{$}\NormalTok{fecha), }\AttributeTok{FUN =} \StringTok{\textquotesingle{}sum\textquotesingle{}}\NormalTok{)}
+\NormalTok{c }\OtherTok{\textless{}{-}} \FunctionTok{aggregate}\NormalTok{(datos}\SpecialCharTok{$}\NormalTok{num\_casos\_prueba\_test\_ac, }\AttributeTok{by =} \FunctionTok{list}\NormalTok{(}\AttributeTok{casos =}\NormalTok{ datos}\SpecialCharTok{$}\NormalTok{fecha), }\AttributeTok{FUN =} \StringTok{\textquotesingle{}sum\textquotesingle{}}\NormalTok{)}
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{aggregate}\NormalTok{(datos}\SpecialCharTok{$}\NormalTok{num\_casos\_prueba\_desconocida, }\AttributeTok{by =} \FunctionTok{list}\NormalTok{(}\AttributeTok{casos =}\NormalTok{ datos}\SpecialCharTok{$}\NormalTok{fecha), }\AttributeTok{FUN =} \StringTok{\textquotesingle{}sum\textquotesingle{}}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(a, }\AttributeTok{col=} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(b, }\AttributeTok{col =} \StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(c, }\AttributeTok{col =} \StringTok{\textquotesingle{}green\textquotesingle{}}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(d,}\AttributeTok{col =} \StringTok{\textquotesingle{}purple\textquotesingle{}}\NormalTok{)}
+
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x =} \StringTok{"topleft"}\NormalTok{,         }\CommentTok{\# Posición}
+       \AttributeTok{title =} \StringTok{"Tipo casos"}\NormalTok{,}
+       \AttributeTok{legend =} \FunctionTok{c}\NormalTok{(}\StringTok{"casos"}\NormalTok{, }\StringTok{"casos pcr"}\NormalTok{, }\StringTok{"casos otras"}\NormalTok{, }\StringTok{"casos ac"}\NormalTok{, }\StringTok{"desconocido"}\NormalTok{), }\CommentTok{\# Textos de la leyenda}
+       \AttributeTok{lty =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{),          }\CommentTok{\# Tipo de líneas}
+       \AttributeTok{col =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}green\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}purple\textquotesingle{}}\NormalTok{),          }\CommentTok{\# Colores de las líneas}
+       \AttributeTok{lwd =} \DecValTok{2}\NormalTok{)   }
+\FunctionTok{grid}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{iymprueba_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\textbf{Pregunta 3}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  Crear dos data frame de nombres, uno de nombre articulo leyendo la
+  información de ``articulo.xlsx'' y el otro de nombre descuento que
+  guarde la información de ``descuento\_aplicar.txt''.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(}\StringTok{"xlsx"}\NormalTok{) }\CommentTok{\#Para leer archivos excel}
+
+\CommentTok{\# Paso 1 leer los datos del archivo excel y del archivo txt"}
+\NormalTok{tabla\_excel }\OtherTok{\textless{}{-}} \FunctionTok{read.xlsx}\NormalTok{(}\StringTok{"articulo.xlsx"}\NormalTok{, }\AttributeTok{sheetIndex =} \DecValTok{1}\NormalTok{)}
+\NormalTok{descuento }\OtherTok{\textless{}{-}} \FunctionTok{read.delim}\NormalTok{(}\StringTok{"descuento\_aplicar.txt"}\NormalTok{)}
+
+
+\CommentTok{\# Paso 2 transformar la tabla excel y el archivo de texto a un data frame}
+\NormalTok{articulos }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(tabla\_excel)}
+\NormalTok{descuentos }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(descuento)}
+
+\CommentTok{\# Cálculo de ingreso bruto}
+\NormalTok{articulos}\SpecialCharTok{$}\NormalTok{ingreso\_bruto }\OtherTok{\textless{}{-}}\NormalTok{ articulos}\SpecialCharTok{$}\NormalTok{PVP }\SpecialCharTok{*}\NormalTok{ articulos}\SpecialCharTok{$}\NormalTok{CANTIDAD }
+
+\NormalTok{articulos }\OtherTok{\textless{}{-}}\NormalTok{ articulos[}\FunctionTok{order}\NormalTok{(articulos}\SpecialCharTok{$}\NormalTok{ingreso\_bruto, }\AttributeTok{decreasing =} \ConstantTok{TRUE}\NormalTok{),]}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{head}\NormalTok{(articulos))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    PRODUCTO   PVP CANTIDAD ingreso_bruto
+## 5         5 10800     4050      43740000
+## 29       29  6600     5800      38280000
+## 1         1  5000     6000      30000000
+## 36       37  9700     3030      29391000
+## 28       28 11500     2000      23000000
+## 15       15  5400     4000      21600000
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Crear una variable llamada tipo que clasifique los artículos en los
+  tipos A, B y C en la forma indicada y añadirlo al data frame artículo
+  y calcula, en una única sentencia, el total de ingresos brutos por
+  cada tipo de artículo.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calcula deciles para utilizarlos en el cálculo del tipo de descuento}
+
+\NormalTok{deciles }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(articulos}\SpecialCharTok{$}\NormalTok{ingreso\_bruto,}\AttributeTok{probs =} \FunctionTok{seq}\NormalTok{(.}\DecValTok{1}\NormalTok{, .}\DecValTok{9}\NormalTok{, }\AttributeTok{by =}\NormalTok{ .}\DecValTok{1}\NormalTok{))}
+
+\CommentTok{\# Asigna tramo de descuento según ingreso bruto y decil}
+\NormalTok{articulos}\SpecialCharTok{$}\NormalTok{tipo }\OtherTok{\textless{}{-}} \FunctionTok{with}\NormalTok{(articulos, }\FunctionTok{ifelse}\NormalTok{(ingreso\_bruto }\SpecialCharTok{\textgreater{}=} \DecValTok{6108000}\NormalTok{, }\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{,}
+                                  \FunctionTok{ifelse}\NormalTok{(ingreso\_bruto }\SpecialCharTok{\textgreater{}} \DecValTok{1797000} \SpecialCharTok{\&}\NormalTok{ ingreso\_bruto }\SpecialCharTok{\textless{}} \DecValTok{6108000}\NormalTok{, }\StringTok{"B"}\NormalTok{,}
+                                  \FunctionTok{ifelse}\NormalTok{(ingreso\_bruto }\SpecialCharTok{\textless{}=} \DecValTok{1797000}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\DecValTok{0}\NormalTok{))))}
+
+\CommentTok{\# Ordena el data frame de mayor a menor ingreso bruto}
+\NormalTok{articulos }\OtherTok{\textless{}{-}}\NormalTok{ articulos[}\FunctionTok{order}\NormalTok{(articulos}\SpecialCharTok{$}\NormalTok{ingreso\_bruto, }\AttributeTok{decreasing =} \ConstantTok{TRUE}\NormalTok{), ]}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{head}\NormalTok{(articulos))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    PRODUCTO   PVP CANTIDAD ingreso_bruto tipo
+## 5         5 10800     4050      43740000    A
+## 29       29  6600     5800      38280000    A
+## 1         1  5000     6000      30000000    A
+## 36       37  9700     3030      29391000    A
+## 28       28 11500     2000      23000000    A
+## 15       15  5400     4000      21600000    A
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Unir los dos data frame, articulo y descuento, de forma adecuada, para
+  crear el data frame clientes. Calcular la variable nuevo\_pvp = pvp --
+  cantidad a descontar. Suponiendo que el volumen de ventas se mantiene
+  constante dar una estimación del porcentaje de decremento en los
+  ingresos brutos al aplicar los descuentos.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Se unen los data frame articulos y descuento para crear el df clientes en el paso posterior}
+\NormalTok{articulos2 }\OtherTok{\textless{}{-}}\NormalTok{ articulos}
+\NormalTok{articulos3 }\OtherTok{\textless{}{-}} \FunctionTok{merge}\NormalTok{(articulos, descuento, }\AttributeTok{by.x =} \StringTok{"tipo"}\NormalTok{, }\AttributeTok{by.y =} \StringTok{"tipo"}\NormalTok{, }\AttributeTok{all.x =} \ConstantTok{TRUE}\NormalTok{)}
+
+
+\CommentTok{\# Crea el data frame clientes"}
+
+\NormalTok{clientes }\OtherTok{\textless{}{-}}\NormalTok{ articulos3}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{head}\NormalTok{(clientes))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   tipo PRODUCTO   PVP CANTIDAD ingreso_bruto descuento
+## 1    A        5 10800     4050      43740000        10
+## 2    A       29  6600     5800      38280000        10
+## 3    A        1  5000     6000      30000000        10
+## 4    A       37  9700     3030      29391000        10
+## 5    A       28 11500     2000      23000000        10
+## 6    A       15  5400     4000      21600000        10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calcular la variable nuevo\_pvp con el \% de descuento correspondiente segun tramo"}
+\NormalTok{clientes}\SpecialCharTok{$}\NormalTok{nuevo\_pvp }\OtherTok{\textless{}{-}} \FunctionTok{with}\NormalTok{(clientes,}\FunctionTok{ifelse}\NormalTok{(tipo }\SpecialCharTok{==} \StringTok{"A"}\NormalTok{, clientes}\SpecialCharTok{$}\NormalTok{PVP }\SpecialCharTok{*} \FloatTok{0.9}\NormalTok{,}
+                                             \FunctionTok{ifelse}\NormalTok{(tipo }\SpecialCharTok{==} \StringTok{"B"}\NormalTok{, clientes}\SpecialCharTok{$}\NormalTok{PVP }\SpecialCharTok{*} \FloatTok{0.85}\NormalTok{, }
+                                            \FunctionTok{ifelse}\NormalTok{(tipo }\SpecialCharTok{==} \StringTok{"C"}\NormalTok{, clientes}\SpecialCharTok{$}\NormalTok{PVP }\SpecialCharTok{*} \FloatTok{0.8}\NormalTok{, }\DecValTok{0}\NormalTok{))))}
+
+\CommentTok{\# Crea una nueva columna donde calcula el ingreso bruto por artículo con los valores actualizados"}
+\NormalTok{clientes}\SpecialCharTok{$}\NormalTok{n\_ingreso\_bruto }\OtherTok{\textless{}{-}}\NormalTok{ clientes}\SpecialCharTok{$}\NormalTok{CANTIDAD }\SpecialCharTok{*}\NormalTok{ clientes}\SpecialCharTok{$}\NormalTok{nuevo\_pvp}
+
+\CommentTok{\# Se realiza el cálculo de decremento"}
+
+\NormalTok{decremento }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\DecValTok{100} \SpecialCharTok{{-}}\NormalTok{ ((}\FunctionTok{sum}\NormalTok{(clientes}\SpecialCharTok{$}\NormalTok{n\_ingreso\_bruto) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(clientes}\SpecialCharTok{$}\NormalTok{ingreso\_bruto)) }\SpecialCharTok{*} \DecValTok{100}\NormalTok{ ), }\AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{paste0}\NormalTok{(}\StringTok{"El porcentaje de decremento corresponde a un "}\NormalTok{, decremento, }\StringTok{"\%"}\NormalTok{, }\StringTok{"."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "El porcentaje de decremento corresponde a un 11.45%."
+\end{verbatim}
+
+\textbf{Pregunta 4}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Para la semana S7, calcule el vector (𝑓1,1−𝑓1,𝑓2,1−𝑓2,𝑓3,1−𝑓3,𝑓4,1−𝑓4)
+  donde 𝑓𝑖 es la frecuencia (relativa) de la modalidad 𝑖∈\{1,2,3,4\}
+  observada en la semana 𝑆7 sobre los 16 sujetos. (Sugerencia: use las
+  funciones tabulate(), cbind(), t()y as.vector()). Ahora, use la
+  función apply() para hacer el mismo cálculo para todas las demás
+  semanas. Almacene el resultado en una matriz.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Leer el archivo }
+\NormalTok{fichero }\OtherTok{\textless{}{-}} \FunctionTok{source}\NormalTok{(}\StringTok{"matriz.R"}\NormalTok{)}
+\NormalTok{fichero }\OtherTok{\textless{}{-}}\NormalTok{ fichero[[}\DecValTok{1}\NormalTok{]]}
+
+\FunctionTok{print}\NormalTok{(fichero)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
+##  [1,]    1    1    1    1    1    1    1    1
+##  [2,]    2    1    1    1    1    1    1    2
+##  [3,]    3    1    1    1    1    1    2    3
+##  [4,]    4    1    1    1    1    1    3    4
+##  [5,]    5    1    1    1    1    2    3    3
+##  [6,]    6    1    1    1    1    1    1    1
+##  [7,]    7    1    1    1    3    4    2    2
+##  [8,]    8    1    1    1    1    1    1    1
+##  [9,]    9    1    1    1    1    1    1    1
+## [10,]   10    1    1    1    1    1    1    4
+## [11,]   11    1    1    1    1    1    1    1
+## [12,]   12    1    1    1    1    1    1    1
+## [13,]   13    1    2    1    3    2    3    4
+## [14,]   14    1    1    1    2    2    4    4
+## [15,]   15    1    1    1    1    1    1    1
+## [16,]   16    1    1    1    1    1    1    1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# El primer paso es limpiar y organizar los datos}
+\CommentTok{\# La variable base tiene por objetivo contar la cantidad de ocurrencias de los niveles y rellena con 0 en caso de no hallar coincidencias}
+
+\NormalTok{base }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(fichero, }\DecValTok{2}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(i) }\FunctionTok{table}\NormalTok{(}\FunctionTok{factor}\NormalTok{(i, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{))))}
+
+\CommentTok{\#Se elimina la columna 1 pues no se utilizará para los cálculos y la tabla esta lista para trabajar}
+\NormalTok{base }\OtherTok{\textless{}{-}}\NormalTok{ base[,}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{] }
+\FunctionTok{print}\NormalTok{(base)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   [,1] [,2] [,3] [,4] [,5] [,6] [,7]
+## 1   16   15   16   13   12   10    8
+## 2    0    1    0    1    3    2    2
+## 3    0    0    0    2    0    3    2
+## 4    0    0    0    0    1    1    4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# En una variable se calcula el total de registros que tiene la tabla, son 16}
+\CommentTok{\# Es preferible calcularla en caso que se desee reutilizar este script}
+\NormalTok{registros }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(fichero)}
+\FunctionTok{print}\NormalTok{(registros)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Se realiza el cálculo de frecuencias relativas para la matriz y se agregan nombres a las columnas }
+
+\NormalTok{matriz }\OtherTok{\textless{}{-}}\NormalTok{ base }\SpecialCharTok{/}\NormalTok{ registros}
+\FunctionTok{colnames}\NormalTok{(matriz) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"s1"}\NormalTok{, }\StringTok{"s2"}\NormalTok{, }\StringTok{"s3"}\NormalTok{, }\StringTok{"s4"}\NormalTok{, }\StringTok{"s5"}\NormalTok{, }\StringTok{"s6"}\NormalTok{, }\StringTok{"s7"}\NormalTok{)}
+
+\FunctionTok{print}\NormalTok{(matriz)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   s1     s2 s3     s4     s5     s6    s7
+## 1  1 0.9375  1 0.8125 0.7500 0.6250 0.500
+## 2  0 0.0625  0 0.0625 0.1875 0.1250 0.125
+## 3  0 0.0000  0 0.1250 0.0000 0.1875 0.125
+## 4  0 0.0000  0 0.0000 0.0625 0.0625 0.250
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Tomando como base la matriz, se crea una nueva para calcular la resta del 1 a las frecuencias}
+
+\NormalTok{matriz2 }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{unlist}\NormalTok{(}\FunctionTok{lapply}\NormalTok{(}\DecValTok{1}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{{-}}\StringTok{\textasciigrave{}}\NormalTok{, matriz)), }\AttributeTok{ncol =} \DecValTok{7}\NormalTok{, }\AttributeTok{nrow=}\DecValTok{4}\NormalTok{)}
+\FunctionTok{row.names}\NormalTok{(matriz2) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"1"}\NormalTok{, }\StringTok{"2"}\NormalTok{, }\StringTok{"3"}\NormalTok{, }\StringTok{"4"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(matriz2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   [,1]   [,2] [,3]   [,4]   [,5]   [,6]  [,7]
+## 1    0 0.0625    0 0.1875 0.2500 0.3750 0.500
+## 2    1 0.9375    1 0.9375 0.8125 0.8750 0.875
+## 3    1 1.0000    1 0.8750 1.0000 0.8125 0.875
+## 4    1 1.0000    1 1.0000 0.9375 0.9375 0.750
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Una vez listas ambas matrices es momento de combinarlas para generar la base del gráfico}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(matriz, matriz2)}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data[ }\FunctionTok{order}\NormalTok{(}\FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{row.names}\NormalTok{(data))), ]}
+\FunctionTok{print}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   s1     s2 s3     s4     s5     s6    s7
+## 1  1 0.9375  1 0.8125 0.7500 0.6250 0.500
+## 1  0 0.0625  0 0.1875 0.2500 0.3750 0.500
+## 2  0 0.0625  0 0.0625 0.1875 0.1250 0.125
+## 2  1 0.9375  1 0.9375 0.8125 0.8750 0.875
+## 3  0 0.0000  0 0.1250 0.0000 0.1875 0.125
+## 3  1 1.0000  1 0.8750 1.0000 0.8125 0.875
+## 4  0 0.0000  0 0.0000 0.0625 0.0625 0.250
+## 4  1 1.0000  1 1.0000 0.9375 0.9375 0.750
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Utilice la función barplot() y el argumento col = c (``black'',
+  ``white'') en esta matriz. El gráfico que se obtiene ofrece una
+  descripción general de la evolución de la Sensación de ardor con el
+  tiempo.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Generación de gráfico para evaluar la sensación de ardor con el tiempo}
+
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+\NormalTok{original }\OtherTok{\textless{}{-}} \FunctionTok{barplot}\NormalTok{(data,}
+        \AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{4}\NormalTok{),}
+        \AttributeTok{main=}\StringTok{"Evolución de la sensación de ardor con el tiempo"}\NormalTok{,}
+        \AttributeTok{xlab=}\StringTok{\textquotesingle{}Semanas\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{ylab=}\StringTok{\textquotesingle{}Frecuencia relativa\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{col =} \FunctionTok{c}\NormalTok{ (}\StringTok{"black"}\NormalTok{, }\StringTok{"white"}\NormalTok{)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{iymprueba_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Cambie el gráfico anterior para que las barras que representan las
+  frecuencias estén en rojo. Los números de las semanas deben estar en
+  azul y en la parte superior del gráfico en lugar del fondo. Los
+  números
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Generación de gráfico para evaluar la sensación de ardor con el tiempo con los cambios solicitados}
+
+\CommentTok{\# Amplia el margen de la hoja del gráfico}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+\NormalTok{cambios }\OtherTok{\textless{}{-}} \FunctionTok{barplot}\NormalTok{(data,}
+        \AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{4}\NormalTok{),}
+        \AttributeTok{xaxt =} \StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{col =} \FunctionTok{c}\NormalTok{ (}\StringTok{"red"}\NormalTok{, }\StringTok{"white"}\NormalTok{),}
+        \AttributeTok{col.axis =} \StringTok{"blue"}\NormalTok{,}
+        \AttributeTok{font.axis =} \DecValTok{2}\NormalTok{,}
+
+      
+\NormalTok{)}
+
+\FunctionTok{title}\NormalTok{(}\StringTok{"Evolución de la sensación de ardor con el tiempo"}\NormalTok{, }\AttributeTok{line =} \FloatTok{3.5}\NormalTok{)}
+\CommentTok{\# Asigna los númeroas de las semanas a la parte superior del gráfico}
+\FunctionTok{axis}\NormalTok{(}\DecValTok{3}\NormalTok{, }\AttributeTok{at =} \FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \FloatTok{0.7}\NormalTok{, }\AttributeTok{to =} \FloatTok{7.9}\NormalTok{,}\AttributeTok{by =} \FloatTok{1.2}\NormalTok{),}\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"s1"}\NormalTok{, }\StringTok{"s2"}\NormalTok{, }\StringTok{"s3"}\NormalTok{, }\StringTok{"s4"}\NormalTok{,}\StringTok{"s5"}\NormalTok{, }\StringTok{"s6"}\NormalTok{, }\StringTok{"s7"}\NormalTok{), }
+     \AttributeTok{col.axis =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{font.axis =} \DecValTok{2}\NormalTok{, }\AttributeTok{tick =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{iymprueba_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+\end{document}
