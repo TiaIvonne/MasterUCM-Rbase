@@ -1,2 +1,2 @@
 # MasterUCM-Rbase
-Ejercicio resuelto modulo R base U Computense Madrid
+This exercise consists of data cleaning and analysis using base-R.
